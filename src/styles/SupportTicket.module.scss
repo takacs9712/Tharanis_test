@@ -1,0 +1,31 @@
+.supportTicketContainer {
+    padding: 20px;
+  }
+  
+  .chatContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .chatBubbleClient {
+    align-self: flex-start;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 70%; 
+    word-wrap: break-word; 
+    margin-bottom: 10px; 
+  }
+  
+  .chatBubbleSupport {
+    align-self: flex-end;
+    background: #e1f5fe;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 70%; 
+    word-wrap: break-word; 
+    margin-bottom: 10px; 
+  }
+  

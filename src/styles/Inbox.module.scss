@@ -1,0 +1,60 @@
+body {
+  margin: 20px;
+}
+
+.inboxContainer {
+  max-width: auto;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .messageItem {
+    padding: 15px 0;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  .dropdown {
+    gap: 20px;
+    display: flex ;
+    margin-bottom: 5px;
+  }
+
+  .pagination {
+    margin-top: 5px;
+  }
+
+  .messageContent {
+    display: grid; 
+    grid-template-columns: auto auto 1fr auto; 
+    gap: 10px;
+  }
+  
+  .messageColumn {
+    padding: 5px; 
+  }
+
+  .messageStatus {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .messageSubject {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .messageSender {
+    color: #747373;
+  }
+
+  .messageCompany {
+    font-style: italic;
+  }
+}

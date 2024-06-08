@@ -1,0 +1,16 @@
+.sidebarContainer {
+    width: 250px;
+    height: 100vh;
+    background-color: #f5f5f5;
+    padding-top: 60px;
+  
+    .sidebarLink {
+      padding: 10px;
+      color: #333;
+      text-decoration: none;
+    }
+  
+    .sidebarLink:hover {
+      background-color: #ddd;
+    }
+  }

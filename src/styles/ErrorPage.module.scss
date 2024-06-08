@@ -1,0 +1,30 @@
+.container {
+    text-align: center;
+    margin-top: 100px;
+  }
+  
+  .title {
+    font-size: 10rem;
+    font-weight: bold;
+    color: #ff6347;
+  }
+  
+  .message {
+    font-size: 1.5rem;
+    margin: 20px 0;
+  }
+  
+  .joke {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .homeLink {
+    font-size: 1.2rem;
+    color: #007bff;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
