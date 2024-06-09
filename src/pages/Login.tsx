@@ -1,8 +1,6 @@
 import LoginForm from "../components/LoginForm";
 
-type Props = {};
-
-const Login = (props: Props) => {
+const Login = () => {
   return (
     <>
       <LoginForm />

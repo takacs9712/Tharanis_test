@@ -1,16 +1,41 @@
 .sidebarContainer {
-    width: 250px;
-    height: 100vh;
-    background-color: #f5f5f5;
-    padding-top: 60px;
-  
-    .sidebarLink {
-      padding: 10px;
-      color: #333;
-      text-decoration: none;
-    }
-  
-    .sidebarLink:hover {
+  width: 250px;
+  background-color: #f8f9fa;
+  color: #dfe2e4;
+  height: 100vh;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+  .hero {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #007bff;
+  }
+
+  .sidebarLink {
+    color: #333;
+    text-decoration: none;
+
+    width: 100%;
+    transition: background-color 0.3s ease;
+
+    &:hover {
       background-color: #ddd;
+      color: #333;
+      width: 100%;
+    }
+
+    .icon {
+      margin-right: 10px;
     }
   }
+
+  .sidebarLink.active {
+    background-color: #007bff;
+    color: white;
+  }
+}

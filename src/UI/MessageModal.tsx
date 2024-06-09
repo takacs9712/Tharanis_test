@@ -1,13 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import { Message } from "../data/data";
 import { useNavigate } from "react-router-dom";
-
-interface MessageModalProps {
-  show: boolean;
-  handleClose: () => void;
-  message: Message | null;
-}
 
 const MessageModal: React.FC<MessageModalProps> = ({
   show,
@@ -56,12 +49,11 @@ const MessageModal: React.FC<MessageModalProps> = ({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <strong>Jegy: {message.company.id}</strong>
         <Button variant="secondary" onClick={handleClose}>
           Bezárás
         </Button>
         <Button onClick={handleChatOpen} variant="primary">
-          Chat
+          Chat Megnyitása
         </Button>
       </Modal.Footer>
     </Modal>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import messages, { Message } from "../data/data";
@@ -15,6 +15,17 @@ const SupportTicket: React.FC = () => {
   const message = messages.find((msg) => msg.id === messageId);
   const navigate = useNavigate();
   const [newMessage, setNewMessage] = useState<string>("");
+  const [ticketMessages, setTicketMessages] = useState<Message[]>(() => {
+    const savedMessages = localStorage.getItem(`ticketMessages-${messageId}`);
+    return savedMessages ? JSON.parse(savedMessages) : message ? [message] : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      `ticketMessages-${messageId}`,
+      JSON.stringify(ticketMessages)
+    );
+  }, [ticketMessages, messageId]);
 
   if (!message) {
     return <div>Üzenet nem található</div>;
@@ -22,9 +33,22 @@ const SupportTicket: React.FC = () => {
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement message sending functionality here
-    console.log("Message sent:", newMessage);
-    setNewMessage("");
+    if (newMessage.trim() !== "") {
+      const newMessageObj: Message = {
+        id: ticketMessages.length + 1,
+        sender: "You",
+        content: newMessage.trim(),
+        status: "unread",
+        company: {
+          name: "Your Company Name",
+          id: 0,
+        },
+        subject: "",
+        messageType: "",
+      };
+      setTicketMessages([...ticketMessages, newMessageObj]);
+      setNewMessage("");
+    }
   };
 
   return (
@@ -36,15 +60,15 @@ const SupportTicket: React.FC = () => {
           <strong>{message.sender}</strong>
           <p>{message.content}</p>
         </div>
-        {/* Display response message for "olvasott" and "olvasatlan" messages */}
-        {message.status === "olvasott" && (
-          <div className={styles.chatBubbleSupport}>
+
+        {ticketMessages.map((msg) => (
+          <div key={msg.id} className={styles.chatBubbleSupport}>
             <strong>Support Team</strong>
-            <p>Köszönjük a visszajelzését. A problémát megoldottuk...</p>
+            <p>{msg.content}</p>
           </div>
-        )}
+        ))}
       </div>
-      {/* Display form for all messages */}
+
       <Form onSubmit={handleSendMessage}>
         <Form.Group>
           <Form.Label>Új Üzenet</Form.Label>
@@ -56,7 +80,9 @@ const SupportTicket: React.FC = () => {
             onChange={(e) => setNewMessage(e.target.value)}
           />
         </Form.Group>
-        <Button type="submit">Küldés</Button>
+        <div className={styles.sendButton}>
+          <Button type="submit">Küldés</Button>
+        </div>
       </Form>
     </div>
   );

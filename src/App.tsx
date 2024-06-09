@@ -1,10 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import "./App.scss";
+
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import RootLayout from "./pages/Root";
 import SupportTicket from "./pages/SupportTicket";
+import Tickets from "./pages/Tickets";
+import { AuthProvider } from "./auth/AuthContext";
 
 const router = createBrowserRouter([
   {
@@ -21,14 +25,27 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home /> },
-      { path: "*", element: <ErrorPage /> },
       { path: "inbox/ticket/:id", element: <SupportTicket /> },
+      { path: "*", element: <ErrorPage /> },
+    ],
+  },
+  {
+    path: "/tickets",
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/tickets", element: <Tickets /> },
+      { path: "*", element: <ErrorPage /> },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 export default App;
