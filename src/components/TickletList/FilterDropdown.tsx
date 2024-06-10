@@ -1,11 +1,6 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 
-interface FilterDropdownProps {
-  filter: string;
-  onFilterChange: (newFilter: string | null) => void;
-}
-
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
   filter,
   onFilterChange,

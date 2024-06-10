@@ -1,19 +1,6 @@
 import React from "react";
 import { Dropdown, Button } from "react-bootstrap";
-import { Message } from "../../data/data";
-import { BsChatDots } from "react-icons/bs";
 import { assignedToOptions } from "../../utils/Constants";
-
-interface TicketRowProps {
-  ticket: Message;
-  index: number;
-  handlePriorityChange: (messageId: number, newPriority: string | null) => void;
-  handleAssignedToChange: (
-    messageId: number,
-    newAssignedTo: string | null
-  ) => void;
-  openChat: (id: number) => void;
-}
 
 const TicketRow: React.FC<TicketRowProps> = ({
   ticket,

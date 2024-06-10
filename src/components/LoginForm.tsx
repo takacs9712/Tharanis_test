@@ -10,6 +10,7 @@ import {
   password as defaultPassword,
 } from "../utils/Constants";
 import { useAuth } from "../auth/AuthContext";
+import InputField from "./LoginForm/InputField";
 
 const LoginForm: React.FC = () => {
   const [emailValue, setEmailValue] = useState("");
@@ -21,6 +22,7 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  // Load stored email and password from local storage
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     const storedPassword = localStorage.getItem("password");
@@ -30,16 +32,19 @@ const LoginForm: React.FC = () => {
     }
   }, []);
 
+  // Validation function
   const validate = (): boolean => {
     const errors: { email?: string; password?: string } = {};
     let isValid = true;
 
+    // Validate email
     const emailError = validateEmail(emailValue);
     if (emailError) {
       errors.email = emailError;
       isValid = false;
     }
 
+    // Validate password
     const passwordError = validatePassword(passwordValue);
     if (passwordError) {
       errors.password = passwordError;
@@ -50,10 +55,12 @@ const LoginForm: React.FC = () => {
     return isValid;
   };
 
+  // Form submission handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
       if (emailValue === defaultEmail && passwordValue === defaultPassword) {
+        // Simulate login with default credentials
         login({ name: "TEST" });
         localStorage.setItem("email", emailValue);
         localStorage.setItem("password", passwordValue);
@@ -76,36 +83,20 @@ const LoginForm: React.FC = () => {
     <section className={styles.section}>
       <div className={styles["login-container"]}>
         <form onSubmit={handleSubmit}>
-          <div className={`form-group ${styles["form-group"]}`}>
-            <label htmlFor="email">Email cím</label>
-            <input
-              type="email"
-              className={`form-control ${errors.email ? "is-invalid" : ""}`}
-              id="email"
-              value={emailValue}
-              onChange={(e) => setEmailValue(e.target.value)}
-            />
-            {errors.email && (
-              <div className={`invalid-feedback ${styles.error}`}>
-                {errors.email}
-              </div>
-            )}
-          </div>
-          <div className={`form-group ${styles["form-group"]}`}>
-            <label htmlFor="password">Jelszó</label>
-            <input
-              type="password"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
-              id="password"
-              value={passwordValue}
-              onChange={(e) => setPasswordValue(e.target.value)}
-            />
-            {errors.password && (
-              <div className={`invalid-feedback ${styles.error}`}>
-                {errors.password}
-              </div>
-            )}
-          </div>
+          <InputField
+            label="Email cím"
+            type="email"
+            value={emailValue}
+            error={errors.email}
+            onChange={setEmailValue}
+          />
+          <InputField
+            label="Jelszó"
+            type="password"
+            value={passwordValue}
+            error={errors.password}
+            onChange={setPasswordValue}
+          />
           <div className={styles["button-group"]}>
             <button type="submit" className="btn btn-primary">
               Bejelentkezés

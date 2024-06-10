@@ -1,15 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-interface User {
-  name: string;
-}
-
-interface AuthContextProps {
-  user: User | null;
-  login: (user: User) => void;
-  logout: () => void;
-}
-
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({

@@ -1,17 +1,6 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import { Message } from "../../data/data";
 import TicketDetails from "./TicketDetails";
-
-interface TicketTableProps {
-  tickets: Message[];
-  handlePriorityChange: (messageId: number, newPriority: string | null) => void;
-  handleAssignedToChange: (
-    messageId: number,
-    newAssignedTo: string | null
-  ) => void;
-  openChat: (id: number) => void;
-}
 
 const TicketTable: React.FC<TicketTableProps> = ({
   tickets,

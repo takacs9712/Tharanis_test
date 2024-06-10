@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pagination, Dropdown, Badge, Table } from "react-bootstrap";
+import { Dropdown, Badge, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Inbox.module.scss";
 import messages, { Message } from "../data/data";

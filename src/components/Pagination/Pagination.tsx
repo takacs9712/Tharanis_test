@@ -1,12 +1,6 @@
 import React from "react";
 import { Pagination } from "react-bootstrap";
 
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (pageNumber: number) => void;
-}
-
 export const Paging: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,

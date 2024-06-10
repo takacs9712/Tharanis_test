@@ -5,11 +5,6 @@ import messages, { Message } from "../data/data";
 import styles from "../styles/SupportTicket.module.scss";
 import BackButton from "../components/Buttons/BackButton";
 
-interface RouteParams {
-  id: string;
-  [key: string]: string | undefined;
-}
-
 const SupportTicket: React.FC = () => {
   const { id } = useParams<RouteParams>();
   const messageId = parseInt(id ?? "", 10);
@@ -21,16 +16,17 @@ const SupportTicket: React.FC = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem(
-      `ticketMessages-${messageId}`,
-      JSON.stringify(ticketMessages)
-    );
     const savedMessages = localStorage.getItem(`ticketMessages-${messageId}`);
     if (savedMessages) {
       const parsedMessages: Message[] = JSON.parse(savedMessages);
       setTicketMessages(parsedMessages);
     }
-  }, [ticketMessages, messageId]);
+  }, []);
+
+  localStorage.setItem(
+    `ticketMessages-${messageId}`,
+    JSON.stringify(ticketMessages)
+  );
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
