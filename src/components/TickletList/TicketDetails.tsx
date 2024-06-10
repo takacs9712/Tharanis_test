@@ -73,8 +73,8 @@ const TicketRow: React.FC<TicketRowProps> = ({
       </Dropdown>
     </td>
     <td>
-      <Button onClick={() => openChat(ticket.id)}>
-        <BsChatDots />
+      <Button variant="link" onClick={() => openChat(ticket.id)}>
+        Megnyitás
       </Button>
     </td>
   </tr>

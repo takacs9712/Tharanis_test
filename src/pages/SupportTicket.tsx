@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import messages, { Message } from "../data/data";
-import { defaultSupportMessage } from "../utils/Constants";
 import styles from "../styles/SupportTicket.module.scss";
 import BackButton from "../components/Buttons/BackButton";
 
