@@ -6,11 +6,13 @@ export interface Company {
 export interface Message {
   id: number;
   subject: string;
-  company: Company;
   sender: string;
+  company: Company;
   messageType: string;
   status: string;
-  content: string; // Új mező hozzáadása
+  content: string;
+  priority?: string;
+  assignedTo?: string;
 }
 
 const messages: Message[] = [

@@ -1,13 +1,54 @@
 .ticketList {
-    padding: 20px;
+  width: 100%;
+  overflow-y: auto;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .button {
+    margin-bottom: 10px;
+  }
+
+  .table {
+    background-color: white;
+    border-collapse: collapse; 
     width: 100%;
-    overflow-y: auto;
-  
-    h2 {
-      margin-bottom: 20px;
+
+    th,
+    td {
+      padding: 10px 15px; 
+      border: 1px solid #ddd; 
     }
-  
-    .table {
-      background-color: white;
+
+    th {
+      text-align: left; 
     }
   }
+
+  @media (max-width: 768px) {
+    .table {
+      th,
+      td {
+        display: block;
+        width: 100%;
+      }
+
+      th {
+        font-weight: bold; 
+        border-bottom: 2px solid #ddd; 
+      }
+
+      td {
+        border-bottom: 1px solid #ddd;
+      }
+
+      td:before {
+        content: attr(data-label); 
+        display: inline-block;
+        font-weight: bold;
+        margin-right: 5px;
+      }
+    }
+  }
+}

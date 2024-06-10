@@ -7,3 +7,7 @@ export const password = "Test1234!";
 
 export const defaultSupportMessage =
   "Köszönjük a visszajelzést, hamarosan felvesszük Önnel a kapcsolatot.";
+
+//dummy names for the tickets
+
+export const assignedToOptions: string[] = ["ABC", "DEF", "GHI"];

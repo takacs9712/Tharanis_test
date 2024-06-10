@@ -9,6 +9,7 @@ import RootLayout from "./pages/Root";
 import SupportTicket from "./pages/SupportTicket";
 import Tickets from "./pages/Tickets";
 import { AuthProvider } from "./auth/AuthContext";
+import SettingsMenu from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/tickets", element: <Tickets /> },
+      { path: "*", element: <ErrorPage /> },
+    ],
+  },
+  {
+    path: "/settings",
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/settings", element: <SettingsMenu /> },
       { path: "*", element: <ErrorPage /> },
     ],
   },
