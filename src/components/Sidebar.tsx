@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
           <BsInbox className={styles.icon} /> Beérkezett üzenetek
         </Nav.Link>
         <Nav.Link className={styles.sidebarLink} href="/tickets">
-          <IoTicket className={styles.icon} /> Tickets
+          <IoTicket className={styles.icon} /> Hibajegyek
         </Nav.Link>
         <Nav.Link className={styles.sidebarLink} href="/settings">
           <BsGearFill className={styles.icon} /> Beállítások

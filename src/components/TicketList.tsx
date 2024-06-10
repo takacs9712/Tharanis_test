@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import { Table, Dropdown, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/TicketList.module.scss";
 import messages, { Message } from "../data/data";
-import { assignedToOptions } from "../utils/Constants";
 import { useNavigate } from "react-router-dom";
-import { BsChatDots } from "react-icons/bs";
+import TicketTable from "./TickletList/TicketTable";
+import FilterDropdown from "./TickletList/FilterDropdown";
+import { Paging } from "./Pagination/Pagination";
 
 const TicketList: React.FC = () => {
   const [filter, setFilter] = useState<string>("Összes");
   const [messagesState, setMessages] = useState<Message[]>(messages);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const navigate = useNavigate();
+
+  const messagesPerPage = 10;
+  const indexOfLastMessage = currentPage * messagesPerPage;
+  const indexOfFirstMessage = indexOfLastMessage - messagesPerPage;
 
   // Filter messages based on status
   const filteredTickets = messagesState.filter((message: Message) => {
@@ -68,7 +73,7 @@ const TicketList: React.FC = () => {
   };
 
   // Load messages from local storage
-  React.useEffect(() => {
+  useEffect(() => {
     const storedMessages = localStorage.getItem("tickets");
     if (storedMessages) {
       try {
@@ -81,100 +86,33 @@ const TicketList: React.FC = () => {
   }, []);
 
   // navigating to the chat based on id
-
   const openChat = (id: number) => {
     navigate(`/inbox/inbox/ticket/${id}`);
   };
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const totalPages = Math.ceil(filteredTickets.length / messagesPerPage);
 
   return (
     <div className={styles.ticketList}>
       <h2>Tickets</h2>
       <div className={styles.button}>
-        <Dropdown onSelect={handleFilterChange}>
-          <Dropdown.Toggle variant="primary" id="dropdown-basic">
-            {filter === "all"
-              ? "All"
-              : filter.charAt(0).toUpperCase() + filter.slice(1)}{" "}
-            Jegy
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item eventKey="Összes">Összes</Dropdown.Item>
-            <Dropdown.Item eventKey="olvasott">Olvasott</Dropdown.Item>
-            <Dropdown.Item eventKey="olvasatlan">Olvasatlan</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <FilterDropdown filter={filter} onFilterChange={handleFilterChange} />
       </div>
-      <Table striped bordered hover responsive="sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Tárgy</th>
-            <th>Státusz</th>
-            <th>Prioritás</th>
-            <th>Hozzárendelve</th>
-            <th>Beszélgetés</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredTickets.map((ticket: Message, index: number) => (
-            <tr key={ticket.id}>
-              <td>{index + 1}</td>
-              <td>{ticket.subject}</td>
-              <td>{ticket.status}</td>
-              <td>
-                <Dropdown
-                  onSelect={(newPriority) =>
-                    handlePriorityChange(ticket.id, newPriority)
-                  }
-                >
-                  <Dropdown.Toggle
-                    variant={
-                      ticket.priority === "ToDo"
-                        ? "warning"
-                        : ticket.priority === "Done"
-                        ? "success"
-                        : "secondary"
-                    }
-                    id="dropdown-basic"
-                  >
-                    {ticket.priority || "Select Priority"}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item eventKey="ToDo">ToDo</Dropdown.Item>
-                    <Dropdown.Item eventKey="Done">Done</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </td>
-              <td>
-                <Dropdown
-                  onSelect={(newAssignedTo) =>
-                    handleAssignedToChange(ticket.id, newAssignedTo)
-                  }
-                >
-                  <Dropdown.Toggle
-                    variant={ticket.assignedTo ? "success" : "secondary"}
-                    id="dropdown-basic"
-                  >
-                    {ticket.assignedTo || "Assign To"}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {assignedToOptions.map((option: string, index: number) => (
-                      <Dropdown.Item key={index} eventKey={option}>
-                        {option}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </td>
-              <td>
-                <Button onClick={() => openChat(ticket.id)}>
-                  <BsChatDots />
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <TicketTable
+        tickets={filteredTickets.slice(indexOfFirstMessage, indexOfLastMessage)}
+        handlePriorityChange={handlePriorityChange}
+        handleAssignedToChange={handleAssignedToChange}
+        openChat={openChat}
+      />
+      <Paging
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

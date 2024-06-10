@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { ListGroup, Pagination, Dropdown } from "react-bootstrap";
+import { Pagination, Dropdown, Badge, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Inbox.module.scss";
 import messages, { Message } from "../data/data";
 import MessageModal from "../UI/MessageModal";
 import SearchBar from "./SearchBar";
+import { Paging } from "./Pagination/Pagination";
 
 const Inbox: React.FC = () => {
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
@@ -38,11 +39,6 @@ const Inbox: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const renderBadge = (status: string) => {
-    const variant = status === "olvasatlan" ? "primary" : "secondary";
-    return <span className={`badge bg-${variant}`}>{status}</span>;
-  };
-
   const filterMessages = (messages: Message[]) => {
     let filtered = [...messages];
 
@@ -58,16 +54,16 @@ const Inbox: React.FC = () => {
         (message) =>
           message.subject.toLowerCase().includes(lowerCaseSearchTerm) ||
           message.sender.toLowerCase().includes(lowerCaseSearchTerm) ||
-          message.company.name.toLowerCase().includes(lowerCaseSearchTerm)
+          message.company.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+          message.content.toLowerCase().includes(lowerCaseSearchTerm)
       );
     }
 
     return filtered;
   };
 
-  const filteredMessages = filterMessages(messages).filter((message) =>
-    message.subject.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredMessages = filterMessages(messages);
+  const totalPages = Math.ceil(filteredMessages.length / messagesPerPage);
 
   return (
     <div className={styles.inboxContainer}>
@@ -95,55 +91,50 @@ const Inbox: React.FC = () => {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-      <ListGroup>
-        {filteredMessages
-          .slice(indexOfFirstMessage, indexOfLastMessage)
-          .map((message: Message) => (
-            <ListGroup.Item
-              key={message.id}
-              className={`${styles.messageItem} ${
-                message.status === "olvasatlan" ? styles.unread : ""
-              }`}
-              onClick={() => handleShow(message)}
-            >
-              <div className={styles.messageContent}>
-                <div className={styles.messageColumn}>
-                  <span className={styles.messageStatus}>
-                    {renderBadge(message.status)}
-                  </span>
-                </div>
-                <div className={styles.messageColumn}>
-                  <span className={styles.messageSender}>{message.sender}</span>
-                </div>
-                <div className={styles.messageColumn}>
-                  <strong className={styles.messageSubject}>
-                    {message.subject}
-                  </strong>
-                </div>
-                <div className={styles.messageColumn}>
-                  <span className={styles.messageCompany}>
-                    {message.company.name}
-                  </span>
-                </div>
-              </div>
-            </ListGroup.Item>
-          ))}
-      </ListGroup>
-      <div className={styles.pagination}>
-        <Pagination>
-          {Array.from(
-            { length: Math.ceil(filteredMessages.length / messagesPerPage) },
-            (_, i) => (
-              <Pagination.Item
-                key={i + 1}
-                active={i + 1 === currentPage}
-                onClick={() => handlePageChange(i + 1)}
+      <Table striped bordered hover responsive="sm">
+        <thead>
+          <tr>
+            <th>Státusz</th>
+            <th>Feladó</th>
+            <th>Tárgy</th>
+            <th>Cég</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredMessages
+            .slice(indexOfFirstMessage, indexOfLastMessage)
+            .map((message: Message) => (
+              <tr
+                key={message.id}
+                className={`${styles.messageItem} ${
+                  message.status === "olvasatlan" ? styles.unread : ""
+                }`}
+                onClick={() => handleShow(message)}
               >
-                {i + 1}
-              </Pagination.Item>
-            )
-          )}
-        </Pagination>
+                <td>
+                  <Badge
+                    bg={
+                      message.status === "olvasatlan" ? "primary" : "secondary"
+                    }
+                  >
+                    {message.status}
+                  </Badge>
+                </td>
+                <td>{message.sender}</td>
+                <td>
+                  <strong>{message.subject}</strong>
+                </td>
+                <td>{message.company.name}</td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
+      <div className={styles.pagination}>
+        <Paging
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
       {selectedMessage && (
         <MessageModal

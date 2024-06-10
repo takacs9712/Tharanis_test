@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import messages, { Message } from "../data/data";
 import { defaultSupportMessage } from "../utils/Constants";
 import styles from "../styles/SupportTicket.module.scss";
+import BackButton from "../components/Buttons/BackButton";
 
 interface RouteParams {
   id: string;
@@ -14,7 +15,6 @@ const SupportTicket: React.FC = () => {
   const { id } = useParams<RouteParams>();
   const messageId = parseInt(id ?? "", 10);
   const message = messages.find((msg) => msg.id === messageId);
-  const navigate = useNavigate();
   const [newMessage, setNewMessage] = useState<string>("");
   const [ticketMessages, setTicketMessages] = useState<Message[]>(() => {
     const savedMessages = localStorage.getItem(`ticketMessages-${messageId}`);
@@ -41,7 +41,7 @@ const SupportTicket: React.FC = () => {
         content: newMessage.trim(),
         status: "unread",
         company: {
-          name: "Your Company Name",
+          name: "",
           id: 0,
         },
         subject: "",
@@ -55,7 +55,7 @@ const SupportTicket: React.FC = () => {
 
   return (
     <div className={styles.supportTicketContainer}>
-      <Button onClick={() => navigate("/inbox")}>Vissza</Button>
+      <BackButton />
       <div className={styles.supportName}>
         <h4>{message.sender}</h4>
         <p>Ticket # {message.id}</p>
