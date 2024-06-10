@@ -9,7 +9,9 @@ const RootLayout: React.FC = () => {
     <>
       <Header />
       <div className={styles.rootContainer}>
-        <Sidebar />
+        <div className={styles.sidebarContainer}>
+          <Sidebar />
+        </div>
         <div className={styles.outletContainer}>
           <Outlet />
         </div>

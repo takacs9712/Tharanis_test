@@ -3,12 +3,31 @@ body {
 }
 
 .inboxContainer {
-  max-width: auto;
+  max-width: auto; 
   margin: 0 auto;
 
   h1 {
     font-size: 24px;
     margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .dropdown {
+      flex-direction: column; 
+      gap: 10px; 
+      .dropdown-toggle {
+        width: 100%; 
+      }
+    }
+
+    .messageContent {
+      grid-template-columns: 1fr auto auto auto; 
+      .messageColumn:nth-child(1),
+      .messageColumn:nth-child(2) {
+
+        display: none;
+      }
+    }
   }
 
   .messageItem {
@@ -22,7 +41,7 @@ body {
 
   .dropdown {
     gap: 20px;
-    display: flex ;
+    display: flex;
     margin-bottom: 5px;
   }
 
@@ -31,13 +50,13 @@ body {
   }
 
   .messageContent {
-    display: grid; 
-    grid-template-columns: auto auto 1fr auto; 
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
     gap: 10px;
   }
-  
+
   .messageColumn {
-    padding: 5px; 
+    padding: 5px;
   }
 
   .messageStatus {
@@ -55,6 +74,10 @@ body {
   }
 
   .messageCompany {
-    font-style: italic;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-width: 100px;
+    margin-left: auto;
   }
 }

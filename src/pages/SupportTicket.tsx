@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import messages, { Message } from "../data/data";
+import { defaultSupportMessage } from "../utils/Constants";
 import styles from "../styles/SupportTicket.module.scss";
 
 interface RouteParams {
@@ -46,6 +47,7 @@ const SupportTicket: React.FC = () => {
         subject: "",
         messageType: "",
       };
+
       setTicketMessages([...ticketMessages, newMessageObj]);
       setNewMessage("");
     }
@@ -54,7 +56,11 @@ const SupportTicket: React.FC = () => {
   return (
     <div className={styles.supportTicketContainer}>
       <Button onClick={() => navigate("/inbox")}>Vissza</Button>
-      <h1>Ticket #{message.id}</h1>
+      <div className={styles.supportName}>
+        <h4>{message.sender}</h4>
+        <p>Ticket # {message.id}</p>
+      </div>
+
       <div className={styles.chatContainer}>
         <div className={styles.chatBubbleClient}>
           <strong>{message.sender}</strong>
@@ -64,7 +70,11 @@ const SupportTicket: React.FC = () => {
         {ticketMessages.map((msg) => (
           <div key={msg.id} className={styles.chatBubbleSupport}>
             <strong>Support Team</strong>
-            <p>{msg.content}</p>
+            <p>
+              {msg.sender === "Support Team"
+                ? defaultSupportMessage
+                : msg.content}
+            </p>
           </div>
         ))}
       </div>

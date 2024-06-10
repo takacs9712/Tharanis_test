@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import styles from "../styles/modals/MessageModal.module.scss";
 
 const MessageModal: React.FC<MessageModalProps> = ({
   show,
@@ -17,7 +18,12 @@ const MessageModal: React.FC<MessageModalProps> = ({
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg">
+    <Modal
+      show={show}
+      onHide={handleClose}
+      size="lg"
+      className={styles.messageModal}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{message.subject}</Modal.Title>
       </Modal.Header>

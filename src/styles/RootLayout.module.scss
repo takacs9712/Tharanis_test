@@ -1,9 +1,27 @@
 .rootContainer {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
+
+  @media (max-width: 768px) {
+    flex-direction: column; 
   }
-  
-  .outletContainer {
-    flex: 1;
-    padding: 2rem;
+}
+
+.sidebarContainer {
+  width: 250px; 
+  background-color: #f8f9fa;
+
+  @media (max-width: 768px) {
+    display: none;
+
   }
+}
+
+.outletContainer {
+  flex: 1;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding-top: 50px; 
+  }
+}
