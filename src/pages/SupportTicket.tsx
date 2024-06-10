@@ -18,7 +18,7 @@ const SupportTicket: React.FC = () => {
   const [newMessage, setNewMessage] = useState<string>("");
   const [ticketMessages, setTicketMessages] = useState<Message[]>(() => {
     const savedMessages = localStorage.getItem(`ticketMessages-${messageId}`);
-    return savedMessages ? JSON.parse(savedMessages) : message ? [message] : [];
+    return savedMessages ? JSON.parse(savedMessages) : [];
   });
 
   useEffect(() => {
@@ -26,18 +26,19 @@ const SupportTicket: React.FC = () => {
       `ticketMessages-${messageId}`,
       JSON.stringify(ticketMessages)
     );
+    const savedMessages = localStorage.getItem(`ticketMessages-${messageId}`);
+    if (savedMessages) {
+      const parsedMessages: Message[] = JSON.parse(savedMessages);
+      setTicketMessages(parsedMessages);
+    }
   }, [ticketMessages, messageId]);
-
-  if (!message) {
-    return <div>Üzenet nem található</div>;
-  }
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (newMessage.trim() !== "") {
       const newMessageObj: Message = {
         id: ticketMessages.length + 1,
-        sender: "You",
+        sender: "Support Team",
         content: newMessage.trim(),
         status: "unread",
         company: {
@@ -56,44 +57,63 @@ const SupportTicket: React.FC = () => {
   return (
     <div className={styles.supportTicketContainer}>
       <BackButton />
-      <div className={styles.supportName}>
-        <h4>{message.sender}</h4>
-        <p>Ticket # {message.id}</p>
-      </div>
-
-      <div className={styles.chatContainer}>
-        <div className={styles.chatBubbleClient}>
-          <strong>{message.sender}</strong>
-          <p>{message.content}</p>
-        </div>
-
-        {ticketMessages.map((msg) => (
-          <div key={msg.id} className={styles.chatBubbleSupport}>
-            <strong>Support Team</strong>
-            <p>
-              {msg.sender === "Support Team"
-                ? defaultSupportMessage
-                : msg.content}
-            </p>
+      {message ? (
+        <>
+          <div className={styles.supportName}>
+            <h4>{message.sender}</h4>
+            <p>Ticket # {message.id}</p>
           </div>
-        ))}
-      </div>
 
-      <Form onSubmit={handleSendMessage}>
-        <Form.Group>
-          <Form.Label>Új Üzenet</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            placeholder="Írja ide az üzenetét..."
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-          />
-        </Form.Group>
-        <div className={styles.sendButton}>
-          <Button type="submit">Küldés</Button>
-        </div>
-      </Form>
+          <div className={styles.chatContainer}>
+            {message.conversation &&
+              message.conversation.map((conv, index) => (
+                <div
+                  key={index}
+                  className={
+                    conv.sender === "Support Team"
+                      ? styles.chatBubbleSupport
+                      : styles.chatBubbleClient
+                  }
+                >
+                  <strong>{conv.sender}</strong>
+                  <p>{conv.message}</p>
+                </div>
+              ))}
+
+            {ticketMessages.map((msg) => (
+              <div
+                key={msg.id}
+                className={
+                  msg.sender === "Support Team"
+                    ? styles.chatBubbleSupport
+                    : styles.chatBubbleClient
+                }
+              >
+                <strong>{msg.sender}</strong>
+                <p>{msg.content}</p>
+              </div>
+            ))}
+          </div>
+
+          <Form onSubmit={handleSendMessage}>
+            <Form.Group>
+              <Form.Label>Új Üzenet</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Írja ide az üzenetét..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+              />
+            </Form.Group>
+            <div className={styles.sendButton}>
+              <Button type="submit">Küldés</Button>
+            </div>
+          </Form>
+        </>
+      ) : (
+        <div>Üzenet nem található</div>
+      )}
     </div>
   );
 };

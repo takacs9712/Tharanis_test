@@ -13,6 +13,11 @@ export interface Message {
   content: string;
   priority?: string;
   assignedTo?: string;
+  conversation?: {
+    sender: string;
+    message: string;
+    timestamp: string;
+  }[];
 }
 
 const messages: Message[] = [
@@ -33,6 +38,24 @@ const messages: Message[] = [
     messageType: "kérdés",
     status: "olvasott",
     content: "Ez egy kérdés a szolgáltatásunkról...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Üdvözlöm! Miben segíthetünk?",
+        timestamp: "2024-05-01 10:00",
+      },
+      {
+        sender: "Nagy Edit",
+        message:
+          "Szeretném tudni, hogy mikor lesz elérhető a szolgáltatás új verziója?",
+        timestamp: "2024-05-01 10:05",
+      },
+      {
+        sender: "Support Team",
+        message: "A következő verzió júniusban várható.",
+        timestamp: "2024-05-01 10:10",
+      },
+    ],
   },
   {
     id: 3,
@@ -42,6 +65,24 @@ const messages: Message[] = [
     messageType: "fejlesztési igény",
     status: "olvasott",
     content: "Ez egy javaslat a felhasználói felület fejlesztésére...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Köszönjük a javaslatot! Milyen változtatásokat javasol?",
+        timestamp: "2024-05-02 09:00",
+      },
+      {
+        sender: "Tóth Péter",
+        message:
+          "A menü struktúráján lehetne javítani, hogy könnyebben lehessen navigálni.",
+        timestamp: "2024-05-02 09:15",
+      },
+      {
+        sender: "Support Team",
+        message: "Megfontoljuk a javaslatát, köszönjük!",
+        timestamp: "2024-05-02 09:30",
+      },
+    ],
   },
   {
     id: 4,
@@ -60,6 +101,24 @@ const messages: Message[] = [
     messageType: "fejlesztési igény",
     status: "olvasott",
     content: "Ez egy igénylés új funkciók bevezetésére...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message:
+          "Köszönjük, hogy felvette velünk a kapcsolatot! Milyen funkciókra lenne szüksége?",
+        timestamp: "2024-05-03 11:00",
+      },
+      {
+        sender: "Kiss Gergő",
+        message: "Jó lenne, ha lenne egy sötét mód az alkalmazásban.",
+        timestamp: "2024-05-03 11:15",
+      },
+      {
+        sender: "Support Team",
+        message: "Jelezzük a fejlesztő csapatnak. Köszönjük az ötletet!",
+        timestamp: "2024-05-03 11:30",
+      },
+    ],
   },
   {
     id: 6,
@@ -78,6 +137,25 @@ const messages: Message[] = [
     messageType: "kérdés",
     status: "olvasott",
     content: "Szeretnék egy kérdést feltenni a szolgáltatásról...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Szívesen válaszolunk a kérdésére. Miben segíthetünk?",
+        timestamp: "2024-05-04 13:00",
+      },
+      {
+        sender: "Szilágyi Éva",
+        message:
+          "Milyen új szolgáltatások várhatóak az elkövetkező hónapokban?",
+        timestamp: "2024-05-04 13:05",
+      },
+      {
+        sender: "Support Team",
+        message:
+          "Több új funkció is érkezik, részleteket hamarosan megosztunk.",
+        timestamp: "2024-05-04 13:10",
+      },
+    ],
   },
   {
     id: 8,
@@ -87,6 +165,23 @@ const messages: Message[] = [
     messageType: "fejlesztési igény",
     status: "olvasott",
     content: "Van egy fejlesztési ötletem az alkalmazáshoz...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Köszönjük az ötletét! Milyen fejlesztésre gondolt?",
+        timestamp: "2024-05-05 14:00",
+      },
+      {
+        sender: "Varga Attila",
+        message: "Lehetne integrálni egy naptár funkciót az alkalmazásba.",
+        timestamp: "2024-05-05 14:10",
+      },
+      {
+        sender: "Support Team",
+        message: "Nagyszerű ötlet! Továbbítjuk a fejlesztő csapatnak.",
+        timestamp: "2024-05-05 14:20",
+      },
+    ],
   },
   {
     id: 9,
@@ -96,6 +191,24 @@ const messages: Message[] = [
     messageType: "fejlesztési igény",
     status: "olvasott",
     content: "Javaslatom van egy új funkció bevezetésére...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Köszönjük a javaslatot! Milyen új funkciót szeretne látni?",
+        timestamp: "2024-05-06 15:00",
+      },
+      {
+        sender: "Németh Zoltán",
+        message:
+          "Jó lenne, ha lenne egy automatikus biztonsági mentés funkció.",
+        timestamp: "2024-05-06 15:10",
+      },
+      {
+        sender: "Support Team",
+        message: "Kiváló ötlet! Értesítjük a fejlesztő csapatot.",
+        timestamp: "2024-05-06 15:20",
+      },
+    ],
   },
   {
     id: 10,
@@ -114,6 +227,25 @@ const messages: Message[] = [
     messageType: "fejlesztési igény",
     status: "olvasott",
     content: "Szeretnék javaslatot tenni a felhasználói élmény javítására...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message:
+          "Köszönjük, hogy megosztja velünk a javaslatát! Mit javasolna?",
+        timestamp: "2024-05-07 16:00",
+      },
+      {
+        sender: "Kovács Dávid",
+        message:
+          "Jobb navigációs élményt és gyorsabb betöltési időt szeretnék.",
+        timestamp: "2024-05-07 16:10",
+      },
+      {
+        sender: "Support Team",
+        message: "Köszönjük az észrevételét, dolgozni fogunk rajta!",
+        timestamp: "2024-05-07 16:20",
+      },
+    ],
   },
   {
     id: 12,
@@ -123,6 +255,24 @@ const messages: Message[] = [
     messageType: "kérdés",
     status: "olvasott",
     content: "Kérdésem van a szolgáltatással kapcsolatban...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Szívesen segítünk. Mi a kérdése?",
+        timestamp: "2024-05-08 17:00",
+      },
+      {
+        sender: "Farkas Kata",
+        message: "Hogyan tudom lemondani az előfizetésemet?",
+        timestamp: "2024-05-08 17:10",
+      },
+      {
+        sender: "Support Team",
+        message:
+          "Az előfizetés lemondásához látogasson el a fiókbeállítások oldalra.",
+        timestamp: "2024-05-08 17:20",
+      },
+    ],
   },
   {
     id: 13,
@@ -141,6 +291,24 @@ const messages: Message[] = [
     messageType: "kérdés",
     status: "olvasott",
     content: "Kérdésem van egy konkrét funkcióval kapcsolatban...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Szívesen válaszolunk. Melyik funkció érdekli?",
+        timestamp: "2024-05-09 18:00",
+      },
+      {
+        sender: "Nagy Mária",
+        message: "Az új export funkcióval kapcsolatban lenne kérdésem.",
+        timestamp: "2024-05-09 18:10",
+      },
+      {
+        sender: "Support Team",
+        message:
+          "Az export funkcióval kapcsolatos információkat a súgóban találja.",
+        timestamp: "2024-05-09 18:20",
+      },
+    ],
   },
   {
     id: 15,
@@ -150,6 +318,24 @@ const messages: Message[] = [
     messageType: "fejlesztési igény",
     status: "olvasott",
     content: "Van egy javaslatom a felhasználói felülethez...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Köszönjük a javaslatot! Milyen módosításokat javasol?",
+        timestamp: "2024-05-10 19:00",
+      },
+      {
+        sender: "Tóth István",
+        message:
+          "A gombok elhelyezkedése lehetne logikusabb és könnyebben elérhető.",
+        timestamp: "2024-05-10 19:10",
+      },
+      {
+        sender: "Support Team",
+        message: "Megvizsgáljuk a javaslatát, köszönjük!",
+        timestamp: "2024-05-10 19:20",
+      },
+    ],
   },
   {
     id: 16,
@@ -168,6 +354,24 @@ const messages: Message[] = [
     messageType: "kérdés",
     status: "olvasott",
     content: "Értékelést szeretnék adni a szolgáltatásról...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message:
+          "Köszönjük, hogy értékelni szeretné szolgáltatásunkat. Hogyan segíthetünk?",
+        timestamp: "2024-05-11 20:00",
+      },
+      {
+        sender: "Balogh András",
+        message: "Nagyon elégedett vagyok, de lenne pár javaslatom.",
+        timestamp: "2024-05-11 20:10",
+      },
+      {
+        sender: "Support Team",
+        message: "Örömmel fogadjuk a javaslatait. Kérem, ossza meg velünk!",
+        timestamp: "2024-05-11 20:20",
+      },
+    ],
   },
   {
     id: 18,
@@ -186,6 +390,24 @@ const messages: Message[] = [
     messageType: "fejlesztési igény",
     status: "olvasott",
     content: "Javaslatom van egy új szolgáltatás bevezetésére...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message:
+          "Köszönjük, hogy javaslatot küldött! Milyen új szolgáltatásra gondolt?",
+        timestamp: "2024-05-12 21:00",
+      },
+      {
+        sender: "Takács Géza",
+        message: "Javaslom egy AI alapú ajánlórendszer bevezetését.",
+        timestamp: "2024-05-12 21:10",
+      },
+      {
+        sender: "Support Team",
+        message: "Ez egy érdekes ötlet. Továbbítjuk a fejlesztő csapatnak.",
+        timestamp: "2024-05-12 21:20",
+      },
+    ],
   },
   {
     id: 20,
@@ -204,6 +426,24 @@ const messages: Message[] = [
     messageType: "fejlesztési igény",
     status: "olvasott",
     content: "Van egy javaslatom a felhasználói felület fejlesztésére...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message: "Köszönjük a javaslatot! Milyen változtatásokat javasolna?",
+        timestamp: "2024-05-13 22:00",
+      },
+      {
+        sender: "Varga László",
+        message:
+          "A felhasználói felület színein és elrendezésén lehetne javítani.",
+        timestamp: "2024-05-13 22:10",
+      },
+      {
+        sender: "Support Team",
+        message: "Továbbítjuk a javaslatát a fejlesztő csapatnak. Köszönjük!",
+        timestamp: "2024-05-13 22:20",
+      },
+    ],
   },
   {
     id: 22,
@@ -213,6 +453,25 @@ const messages: Message[] = [
     messageType: "kérdés",
     status: "olvasott",
     content: "Kérdésem van a fizetési folyamatról...",
+    conversation: [
+      {
+        sender: "Support Team",
+        message:
+          "Szívesen segítünk a fizetési folyamattal kapcsolatban. Mi a kérdése?",
+        timestamp: "2024-05-14 23:00",
+      },
+      {
+        sender: "Kovács Tamás",
+        message: "Hogyan tudok számlát kérni a fizetésről?",
+        timestamp: "2024-05-14 23:10",
+      },
+      {
+        sender: "Support Team",
+        message:
+          "A számlát a fiókjában az előfizetések résznél tudja letölteni.",
+        timestamp: "2024-05-14 23:20",
+      },
+    ],
   },
   {
     id: 23,

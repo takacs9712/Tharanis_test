@@ -42,7 +42,7 @@ const Header: React.FC = () => {
                 <Navbar.Text className={styles.welcomeMessage}>
                   Üdv, {user.name}!
                 </Navbar.Text>
-                <Nav.Link href="#profile">Profile</Nav.Link>
+                <Nav.Link href="/profile">Profile</Nav.Link>
                 <div className={styles.button}>
                   <Button className="d-block d-lg-none" href="/tickets">
                     Hibajegyek

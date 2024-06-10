@@ -37,7 +37,7 @@ const MessageModal: React.FC<MessageModalProps> = ({
             }}
           >
             <p>
-              <strong>Küldő</strong> {message.sender}
+              <strong>Küldő:</strong> {message.sender}
             </p>
             <p>
               <strong>Cég:</strong> {message.company.name}
@@ -48,14 +48,14 @@ const MessageModal: React.FC<MessageModalProps> = ({
           </div>
           <div>
             <p>
-              <strong>Üzenet típusa</strong> {message.messageType}
+              <strong>Üzenet típusa:</strong> {message.messageType}
             </p>
             <p>
               <strong>Státusz:</strong> {message.status}
             </p>
-          </div>
-          <div style={{ marginTop: "20px", whiteSpace: "pre-wrap" }}>
-            {message.content}
+            <p>
+              <strong>Üzenet:</strong> {message.content}
+            </p>
           </div>
         </Modal.Body>
         <Modal.Footer>
