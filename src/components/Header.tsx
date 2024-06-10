@@ -11,7 +11,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logout();
+    logout();
     navigate("/");
   };
 
