@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../../styles/LoginForm.module.scss";
-import { Form } from "react-bootstrap";
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
