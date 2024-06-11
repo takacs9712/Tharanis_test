@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Dropdown, Badge, Table } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Inbox.module.scss";
 import messages, { Message } from "../data/data";
 import MessageModal from "../UI/MessageModal";
 import SearchBar from "./SearchBar";
+import FilterDropdown from "./Inbox/FilterDropdown";
+import InboxTable from "./Inbox/InboxTable";
 import { Paging } from "./Pagination/Pagination";
 
 const Inbox: React.FC = () => {
@@ -68,67 +68,20 @@ const Inbox: React.FC = () => {
   return (
     <div className={styles.inboxContainer}>
       <h1>Beérkezett üzenetek</h1>
-      <Dropdown>
-        <div className={styles.dropdown}>
-          <SearchBar
-            searchTerm={searchTerm}
-            onSearchChange={handleSearchChange}
-          />
-          <Dropdown.Toggle variant="primary" id="dropdown-basic">
-            Szűrés
-          </Dropdown.Toggle>
-        </div>
-
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={() => handleFilterChange("all")}>
-            Minden üzenet
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => handleFilterChange("olvasott")}>
-            Olvasott üzenetek
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => handleFilterChange("olvasatlan")}>
-            Olvasatlan üzenetek
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-      <Table striped bordered hover responsive="sm">
-        <thead>
-          <tr>
-            <th>Státusz</th>
-            <th>Feladó</th>
-            <th>Tárgy</th>
-            <th>Cég</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredMessages
-            .slice(indexOfFirstMessage, indexOfLastMessage)
-            .map((message: Message) => (
-              <tr
-                key={message.id}
-                className={`${styles.messageItem} ${
-                  message.status === "olvasatlan" ? styles.unread : ""
-                }`}
-                onClick={() => handleShow(message)}
-              >
-                <td>
-                  <Badge
-                    bg={
-                      message.status === "olvasatlan" ? "primary" : "secondary"
-                    }
-                  >
-                    {message.status}
-                  </Badge>
-                </td>
-                <td>{message.sender}</td>
-                <td>
-                  <strong>{message.subject}</strong>
-                </td>
-                <td>{message.company.name}</td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
+      <div className={styles.dropdown}>
+        <SearchBar
+          searchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+        />
+        <FilterDropdown handleFilterChange={handleFilterChange} />
+      </div>
+      <InboxTable
+        messages={filteredMessages.slice(
+          indexOfFirstMessage,
+          indexOfLastMessage
+        )}
+        handleShow={handleShow}
+      />
       <div className={styles.pagination}>
         <Paging
           currentPage={currentPage}
