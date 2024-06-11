@@ -7,6 +7,8 @@ export const validateEmail = (email: string): string | null => {
   return null;
 };
 
+// Minimalistic validation
+
 export const validatePassword = (password: string): string | null => {
   if (!password) {
     return "Jelszó megadása kötelező";

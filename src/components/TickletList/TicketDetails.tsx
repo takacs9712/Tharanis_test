@@ -61,7 +61,7 @@ const TicketRow: React.FC<TicketRowProps> = ({
     </td>
     <td>
       <Button variant="link" onClick={() => openChat(ticket.id)}>
-        Megnyitás
+        Chat Megnyitás
       </Button>
     </td>
   </tr>

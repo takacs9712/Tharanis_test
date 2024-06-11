@@ -61,3 +61,9 @@ interface InputFieldProps {
   error?: string;
   onChange: (value: string) => void;
 }
+
+interface LoginInfoModalProps {
+  show: boolean;
+  onHide: () => void;
+  fillCredentials: () => void;
+}

@@ -2,12 +2,6 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { email, password } from "../utils/Constants";
 
-interface LoginInfoModalProps {
-  show: boolean;
-  onHide: () => void;
-  fillCredentials: () => void;
-}
-
 const LoginInfoModal: React.FC<LoginInfoModalProps> = ({
   show,
   onHide,

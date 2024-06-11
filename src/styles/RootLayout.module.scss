@@ -6,6 +6,9 @@
   @media (max-width: 768px) {
     flex-direction: column; 
   }
+  @media (max-width: 1024px) {
+    flex-direction: column; 
+  }
 }
 
 .sidebarContainer {
@@ -13,7 +16,15 @@
   background-color: #f8f9fa;
 
   @media (max-width: 768px) {
+
+
+  }
+  @media (max-width: 960px) {
     display: none;
+
+  }
+  @media (max-width: 1024px) {
+    transform: translateX(-100%);
 
   }
 }
