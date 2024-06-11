@@ -10,7 +10,7 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
 }) => {
   return (
-    <Form>
+    <>
       <label htmlFor={label}>{label}</label>
       <input
         type={type}
@@ -22,7 +22,7 @@ const InputField: React.FC<InputFieldProps> = ({
       {error && (
         <div className={`invalid-feedback ${styles.error}`}>{error}</div>
       )}
-    </Form>
+    </>
   );
 };
 
